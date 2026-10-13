@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
-import './App.css';
+import CheckoutModal from './CheckoutModal';
 
 const CartItem = ({ onNavigate }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-  // Parse dollar string like "$15" into integer 15
   const parseCost = (costString) => {
     return parseFloat(costString.replace('$', '')) || 0;
   };
@@ -36,13 +36,8 @@ const CartItem = ({ onNavigate }) => {
     dispatch(removeItem(itemName));
   };
 
-  const handleCheckoutShopping = () => {
-    alert("Checkout functionality coming soon!");
-  };
-
   return (
     <div>
-      {/* Shared Navbar */}
       <nav className="navbar">
         <div className="nav-brand" onClick={() => onNavigate('landing')}>
           <span style={{ fontSize: '1.8rem' }}>🌿</span>
@@ -65,7 +60,6 @@ const CartItem = ({ onNavigate }) => {
         </div>
       </nav>
 
-      {/* Cart Container */}
       <div className="cart-container">
         <h2 className="cart-header">Your Shopping Cart</h2>
 
@@ -115,13 +109,20 @@ const CartItem = ({ onNavigate }) => {
               <button className="continue-shopping-btn" onClick={() => onNavigate('products')}>
                 Continue Shopping
               </button>
-              <button className="checkout-btn" onClick={handleCheckoutShopping}>
-                Checkout (Coming Soon)
+              <button className="checkout-btn" onClick={() => setIsModalOpen(true)}>
+                Checkout
               </button>
             </div>
           </>
         )}
       </div>
+
+      <CheckoutModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        totalAmount={calculateTotalAmount()} 
+        onNavigate={onNavigate} 
+      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import AboutUs from './AboutUs';
-import ProductList from './ProductList';
-import CartItem from './CartItem';
+import AboutUs from './components/AboutUs';
+import ProductList from './components/ProductList';
+import CartItem from './components/CartItem';
 import './App.css';
 
 const App = () => {

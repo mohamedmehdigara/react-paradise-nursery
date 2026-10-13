@@ -398,3 +398,225 @@ body {
   color: #777;
   margin-bottom: 1.5rem;
 }
+
+/* Checkout Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-subtotal {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 1.5rem;
+  color: var(--primary-green);
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkout-form input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row input {
+  flex: 1;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  background: #eee;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.submit-order-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-green);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.submit-order-btn:hover {
+  background: var(--dark-green);
+}
+
+.order-success {
+  text-align: center;
+  padding: 1rem;
+}
+
+.success-icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.confirmation-email {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 1rem 0 2rem;
+}
+
+/* Plant Care Modal Styling */
+.clickable-img {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.clickable-img:hover {
+  opacity: 0.9;
+}
+
+.card-btn-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.care-details-btn {
+  flex: 1;
+  padding: 0.6rem;
+  background-color: var(--light-green);
+  color: var(--dark-green);
+  border: 1px solid var(--primary-green);
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.care-details-btn:hover {
+  background-color: #d4edda;
+}
+
+.plant-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 550px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.plant-modal-header {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.plant-modal-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.plant-modal-info h2 {
+  color: var(--dark-green);
+  margin-bottom: 0.25rem;
+}
+
+.plant-modal-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--primary-green);
+  margin-bottom: 0.5rem;
+}
+
+.care-instructions-container {
+  background-color: #f9fbf9;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 1.5rem;
+}
+
+.care-instructions-container h3 {
+  font-size: 1.1rem;
+  color: var(--dark-green);
+  margin-bottom: 1rem;
+}
+
+.care-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.care-card:last-child {
+  margin-bottom: 0;
+}
+
+.care-icon {
+  font-size: 1.4rem;
+}
+
+.care-card strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.care-card p {
+  font-size: 0.88rem;
+  color: #555;
+  margin-top: 0.15rem;
+}
+
+.plant-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+}
