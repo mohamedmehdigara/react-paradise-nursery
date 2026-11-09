@@ -49,6 +49,7 @@ const CartItem = ({ onNavigate }) => {
         <div className="nav-links">
           <button className="nav-link" onClick={() => onNavigate('landing')}>Home</button>
           <button className="nav-link" onClick={() => onNavigate('products')}>Plants</button>
+          <button className="nav-link" onClick={() => onNavigate('contact')}>Contact Us</button>
           <div className="cart-icon-container" onClick={() => onNavigate('cart')}>
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1"></circle>

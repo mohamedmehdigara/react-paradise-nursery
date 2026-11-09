@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AboutUs from './components/AboutUs';
 import ProductList from './components/ProductList';
 import CartItem from './components/CartItem';
+import ContactUs from './components/ContactUs';
 import './App.css';
 
 const App = () => {
@@ -26,6 +27,8 @@ const App = () => {
         </div>
       ) : currentPage === 'products' ? (
         <ProductList onNavigate={setCurrentPage} />
+     ) : currentPage === 'contact' ? (
+        <ContactUs onNavigate={setCurrentPage} />
       ) : (
         <CartItem onNavigate={setCurrentPage} />
       )}
