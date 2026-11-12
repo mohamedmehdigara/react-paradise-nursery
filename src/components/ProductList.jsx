@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice';
 import PlantDetailModal from './PlantDetailModal';
+import SearchAndFilter from './SearchAndFilter';
 
 const ProductList = ({ onNavigate }) => {
   const dispatch = useDispatch();
@@ -11,6 +12,10 @@ const ProductList = ({ onNavigate }) => {
   // Modal State
   const [selectedPlant, setSelectedPlant] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Search & Filter State
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
@@ -99,6 +104,21 @@ const ProductList = ({ onNavigate }) => {
     setIsModalOpen(true);
   };
 
+  // Extract category names and filter plants dynamically
+  const allCategories = plantsArray.map((item) => item.category);
+
+  const filteredCategories = plantsArray
+    .filter((categoryObj) => selectedCategory === 'All' || categoryObj.category === selectedCategory)
+    .map((categoryObj) => ({
+      ...categoryObj,
+      plants: categoryObj.plants.filter(
+        (plant) =>
+          plant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          plant.description.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    }))
+    .filter((categoryObj) => categoryObj.plants.length > 0);
+
   return (
     <div>
       <nav className="navbar">
@@ -125,47 +145,61 @@ const ProductList = ({ onNavigate }) => {
       </nav>
 
       <div className="product-grid-container">
-        {plantsArray.map((categoryObj, idx) => (
-          <div key={idx}>
-            <h2 className="category-title">{categoryObj.category}</h2>
-            <div className="plant-grid">
-              {categoryObj.plants.map((plant, plantIdx) => {
-                const added = isAlreadyInCart(plant.name);
-                return (
-                  <div className="plant-card" key={plantIdx}>
-                    <img 
-                      src={plant.image} 
-                      alt={plant.name} 
-                      className="clickable-img"
-                      onClick={() => handleOpenCareModal(plant)}
-                    />
-                    <div className="plant-card-body">
-                      <h3 className="plant-title">{plant.name}</h3>
-                      <p className="plant-price">{plant.cost}</p>
-                      <p className="plant-description">{plant.description}</p>
-                      
-                      <div className="card-btn-group">
-                        <button 
-                          className="care-details-btn"
-                          onClick={() => handleOpenCareModal(plant)}
-                        >
-                          Care Details 🌿
-                        </button>
-                        <button
-                          className="add-to-cart-btn"
-                          onClick={() => handleAddToCart(plant)}
-                          disabled={added}
-                        >
-                          {added ? "Added" : "Add to Cart"}
-                        </button>
+        <SearchAndFilter
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          categories={allCategories}
+        />
+
+        {filteredCategories.length === 0 ? (
+          <div className="no-results-message">
+            <p>No plants matched your search criteria. Try adjusting your filters.</p>
+          </div>
+        ) : (
+          filteredCategories.map((categoryObj, idx) => (
+            <div key={idx}>
+              <h2 className="category-title">{categoryObj.category}</h2>
+              <div className="plant-grid">
+                {categoryObj.plants.map((plant, plantIdx) => {
+                  const added = isAlreadyInCart(plant.name);
+                  return (
+                    <div className="plant-card" key={plantIdx}>
+                      <img 
+                        src={plant.image} 
+                        alt={plant.name} 
+                        className="clickable-img"
+                        onClick={() => handleOpenCareModal(plant)}
+                      />
+                      <div className="plant-card-body">
+                        <h3 className="plant-title">{plant.name}</h3>
+                        <p className="plant-price">{plant.cost}</p>
+                        <p className="plant-description">{plant.description}</p>
+                        
+                        <div className="card-btn-group">
+                          <button 
+                            className="care-details-btn"
+                            onClick={() => handleOpenCareModal(plant)}
+                          >
+                            Care Details 🌿
+                          </button>
+                          <button
+                            className="add-to-cart-btn"
+                            onClick={() => handleAddToCart(plant)}
+                            disabled={added}
+                          >
+                            {added ? "Added" : "Add to Cart"}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       <PlantDetailModal 
